@@ -3,6 +3,7 @@
     <types>
         <members>QuoteLineitemSelector</members>
         <members>OrderSelector</members>
+        <members>SimuladorVendasController</members>
         <name>ApexClass</name>
     </types>
     <!--<types>
