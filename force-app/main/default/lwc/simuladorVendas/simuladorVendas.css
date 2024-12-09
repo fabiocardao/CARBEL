@@ -1,0 +1,162 @@
+.wideRegion {
+    background-color: var(--lwc-colorBackgroundAlt, rgb(255, 255, 255));
+    border          : var(--lwc-borderWidthThin, 1px) solid var(--lwc-colorBorder, rgb(221, 219, 218));
+    border-radius   : var(--lwc-borderRadiusMedium, 0.25rem);
+}
+
+.wideRegion2 {
+    background-color          : var(--lwc-colorBackgroundAlt, rgb(255, 255, 255));
+    border                    : var(--lwc-borderWidthThin, 1px) solid var(--lwc-colorBorder, rgb(221, 219, 218));
+    border-radius             : var(--lwc-borderRadiusMedium, 0.25rem);
+    border-bottom-right-radius: 0 !important;
+    border-bottom-left-radius : 0 !important;
+    border-bottom             : none;
+}
+
+.custom-card {
+    position       : relative;
+    padding        : 0;
+    background     : #f3f0f0;
+    border         : 1px solid rgb(221, 219, 218);
+    border-radius  : var(--lwc-borderRadiusMedium, 0.25rem);
+    background-clip: padding-box;
+    box-shadow     : rgba(0, 0, 0, 0.1) 0px 2px 2px 0px;
+}
+
+.custom-card>h3 {
+    padding      : .50rem;
+    background   : #f3f0f0;
+    font-weight  : bold;
+    border-bottom: 1px solid #ddd;
+    font-size    : 0.9em;
+}
+
+.custom-card>.content {
+    padding: .75rem;
+}
+
+.cabecalhoValoresAgregados {
+    padding      : .5rem;
+    background   : #f3f0f0;
+    font-weight  : 700;
+    border-bottom: 1px solid #ddd;
+    font-size    : .9em;
+}
+
+.botoes {
+    text-align   : center;
+    padding      : 25px 0;
+    margin-bottom: 50px;
+}
+
+.btnNewAgregado {
+    height: 2em;
+    width : 2em;
+}
+
+.botoes .slds-button {
+    margin: 0 15px;
+}
+
+.proposta-cliente-botoes {
+    text-align: right;
+}
+
+.alerta {
+    margin: 35px 0;
+}
+
+table {
+    table-layout: fixed;
+    width       : 100%;
+    max-width   : 100% !important;
+}
+
+table thead th,
+table tbody td {
+    white-space: inherit !important;
+}
+
+.tabelaProposta thead th,
+.align-center {
+    text-align: center !important;
+}
+
+.tabelaProposta tbody td {
+    padding   : .2rem;
+    text-align: right;
+}
+
+.text-right {
+    text-align: right;
+}
+
+.modal-loading .slds-modal__content {
+    height  : 100px;
+    position: relative;
+    padding : 50px 0;
+}
+
+.modal-desconto h4 {
+    margin: 15px 0;
+}
+
+small {
+    font-size: 90%;
+}
+
+td.iconeAlcada {
+    text-align  : center !important;
+    padding-left: 3% !important;
+}
+
+button.action-b {
+    font-weight: bold;
+}
+
+.btnSalvar {
+    margin-right: 5px;
+}
+
+.btnCancelar {
+    margin-right: 10px
+}
+
+.slds-border_top {
+    margin    : 5px 0;
+    margin-top: 10px;
+}
+
+.botoesFooter {
+    background-color          : #fff;
+    border                    : var(--lwc-borderWidthThin, 1px) solid var(--lwc-colorBorder, rgb(221, 219, 218));
+    padding                   : 10px 0;
+    border-bottom-left-radius : 5px;
+    border-bottom-right-radius: 5px;
+}
+
+.totProposta {
+    font-size: 1.5em;
+}
+
+.divTotProposta {
+    text-align   : end;
+    padding-right: 20px;
+}
+
+.custoBruto {
+    padding-left: 36px;
+}
+
+.marginTopBottom20 {
+    margin-top: 20px;
+    margin-bottom: 26px;
+}
+
+.ctnAnalisar {
+    margin-right: 2.5px;
+}
+
+.btnRestaurar {
+    margin-bottom: 2.5px;
+}

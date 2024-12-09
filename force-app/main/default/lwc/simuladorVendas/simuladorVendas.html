@@ -1,0 +1,1074 @@
+<template>
+
+    <c-modal-adicionar-agregado record-id={recordId} object-api-name={objectApiName} onadicionaragregado={adicionarAgregado}></c-modal-adicionar-agregado>
+    <div class="slds-grid slds-gutters slds-p-horizontal_small slds-p-vertical_small">
+
+        <div if:false={permissaoCuestos} class="slds-size_1-of-6"></div>
+        <div class="slds-col slds-size_4-of-6">
+
+            <div id="informacoesUnidadeSecao" class={informacoesUnidadeClass}>
+                <h3 class="slds-section__title" style='padding-bottom:0;'>
+                    <button aria-controls="informacoesUnidadeExpand" aria-expanded="true"
+                        class="slds-button slds-section__title-action" onclick={handleExpandInformacoesUnidade}>
+                        <lightning-icon icon-name="utility:switch" alternative-text="button icon" size="x-small"
+                            class="slds-section__title-action-icon slds-button__icon_left"></lightning-icon>
+                        <span class="slds-truncate" title="Section Title">Informações do veículo</span>
+                    </button>
+                </h3>
+                <div aria-hidden="false" class="slds-section__content" id="informacoesUnidadeExpand"
+                    style='padding-top:0;'>
+                    <div class="wideRegion">
+
+                        <lightning-record-edit-form object-api-name="QuoteLineItem">
+
+                            <div class="slds-grid slds-gutters slds-p-horizontal_small slds-m-top_small">
+                                <div class="slds-col slds-size_1-of-2">
+
+                                    <!--lightning-record-edit-form object-api-name="OpportunityLineItem"-->
+                                    <lightning-input-field onchange={changeProduto}
+                                        field-name="Product2Id" value={camposFormulario.produtoId} disabled>
+                                    </lightning-input-field>
+                                    <!--/lightning-record-edit-form-->
+
+                                </div>
+
+                                <div class="slds-col slds-size_1-of-2">
+
+                                    <lightning-input-field field-name="Ativo__c" value={camposFormulario.ativoId}
+                                        disabled>
+                                    </lightning-input-field>
+
+                                </div>
+                            </div>
+
+                        </lightning-record-edit-form>
+
+
+                        <div class="slds-grid slds-gutters slds-p-horizontal_small slds-m-bottom_small">
+
+                            <div class="slds-col slds-size_1-of-2">
+
+                                <lightning-input name="Chassi" label="Chassi" value={camposFormulario.chassi} disabled>
+                                </lightning-input>
+                                <lightning-input name="Marca" label="Marca" value={camposFormulario.marca} disabled>
+                                </lightning-input>
+                                <!--lightning-input name="Modelo" label="Modelo" value={modelo} disabled ></lightning-input-->
+                                <lightning-input name="AnoFabricação" label="Ano de Fabricação"
+                                    value={camposFormulario.anoFabricacao} disabled></lightning-input>
+                                <lightning-input name="Motorizacao" label="Motorização"
+                                    value={camposFormulario.motorizacao} disabled></lightning-input>
+                                <lightning-input name="Potencia" label="Potência" value={camposFormulario.potencia}
+                                    disabled></lightning-input>
+
+                            </div>
+
+
+                            <div class="slds-col slds-size_1-of-2">
+
+                                <lightning-input name="Placa" label="Placa" value={camposFormulario.placa} disabled>
+                                </lightning-input>
+                                <lightning-input name="Cor" label="cor" value={camposFormulario.cor} disabled>
+                                </lightning-input>
+                                <!--lightning-input name="Versao" label="versão" value={chassi} disabled ></lightning-input-->
+                                <lightning-input name="AnoModelo" label="Ano do Modelo"
+                                    value={camposFormulario.anoModelo} disabled></lightning-input>
+                                <lightning-input name="Cambio" label="Câmbio" value={camposFormulario.cambio} disabled>
+                                </lightning-input>
+                                <lightning-input name="Combustivel" label="Combustível"
+                                    value={camposFormulario.combustivel} disabled></lightning-input>
+
+                            </div>
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="tabelaVenda" class={tabelaVendaClass}>
+                <h3 class="slds-section__title" style='padding-bottom:0;'>
+                    <button aria-controls="tabelaVendaExpand" aria-expanded="true"
+                        class="slds-button slds-section__title-action" onclick={handleExpandTabelaVenda}>
+                        <lightning-icon icon-name="utility:switch" alternative-text="button icon" size="x-small"
+                            class="slds-section__title-action-icon slds-button__icon_left"></lightning-icon>
+                        <span class="slds-truncate" title="Section Title">Tabela Venda</span>
+                    </button>
+                </h3>
+                <div aria-hidden="false" class="slds-section__content" id="tabelaVendaExpand" style='padding-top:0;'>
+                    <div class="wideRegion">
+
+                        <div class="slds-grid slds-gutters slds-p-horizontal_small slds-p-vertical_small">
+                            <div class="slds-col slds-size_1-of-2">
+
+                                <div class="slds-grid slds-gutters slds-p-horizontal_small slds-p-vertical_small">
+
+                                    <div class="slds-col slds-size_1-of-1 slds-m-top_x-small">
+                                        <strong>Preço Publico:&nbsp;
+                                            <lightning-formatted-number value={camposFormularioTabelaVenda.precoPublico}
+                                                format-style="currency" currency-code="BRL">
+                                            </lightning-formatted-number>
+                                        </strong>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="slds-col slds-size_1-of-2">
+
+                                <div class="slds-grid slds-gutters slds-p-horizontal_small slds-p-vertical_small">
+
+                                    <div class="slds-col slds-size_2-of-5"></div>
+                                    <div class="slds-col slds-size_2-of-5 slds-m-top_x-small">
+                                        <strong if:true={permissaoCuestos}>Utilizar custo operacional? </strong>
+                                    </div>
+                                    <div class="slds-col slds-size_1-of-5">
+                                        <div if:true={permissaoCuestos} class="slds-checkbox_add-button">
+                                            <input type="checkbox" class="slds-assistive-text" id="add-checkbox-6"
+                                                value="add-checkbox-6" onchange={changeUtilizarOperacional} />
+                                            <label for="add-checkbox-6" class="slds-checkbox_faux">
+                                                <span class="slds-assistive-text"></span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="slds-grid slds-gutters slds-p-horizontal_small slds-m-horizontal_xxx-small">
+
+                            <div id="custoGeralVeiculoTabelaVenda" class="slds-section " style="width: 100%;">
+                                <h3 class="slds-section__title" style='padding-bottom:0;'>
+                                    <button aria-controls="custoGeralVeiculoTabelaVendaExpand" aria-expanded="true"
+                                        class="slds-button slds-section__title-action"
+                                        onclick={handleExpandcustoGeralVeiculoTabelaVenda}>
+
+                                        <template if:true={custoGeralVeiculoTabelaVendaClass}>
+                                            <lightning-icon icon-name="utility:chevrondown"
+                                                alternative-text="button icon" size="x-small"
+                                                class="slds-section__title-action-icon slds-button__icon_left">
+                                            </lightning-icon>
+                                        </template>
+
+                                        <template if:false={custoGeralVeiculoTabelaVendaClass}>
+                                            <lightning-icon icon-name="utility:chevronup" alternative-text="button icon"
+                                                size="x-small"
+                                                class="slds-section__title-action-icon slds-button__icon_left">
+                                            </lightning-icon>
+                                        </template>
+
+                                        <span class="slds-truncate" title="Section Title">Custo Geral do Veículo</span>
+                                    </button>
+                                </h3>
+                                <template if:true={custoGeralVeiculoTabelaVendaClass}>
+
+                                    <div aria-hidden="false" class="slds-section__content"
+                                        id="custoGeralVeiculoTabelaVendaExpand" style='padding-top:0;'>
+                                        <div class="wideRegion">
+
+
+                                            <div
+                                                class="slds-grid slds-gutters slds-p-horizontal_small slds-p-vertical_small">
+                                                <div class="slds-m-horizontal_small custom-card">
+                                                    <h3>Agregados</h3>
+                                                    <table
+                                                        class="slds-table slds-table_cell-buffer slds-table_bordered">
+
+                                                        <tbody>
+
+                                                            <template for:each={camposFormularioTabelaVenda.agregados}
+                                                                for:item="agregado">
+                                                                <tr class="slds-hint-parent" key={agregado.valor}>
+                                                                    <td>
+                                                                        <div class="slds-truncate">
+                                                                            {agregado.name}
+                                                                        </div>
+                                                                    </td>
+                                                                    <td>
+                                                                        <strong>
+                                                                            <lightning-formatted-number
+                                                                                value={agregado.valor}
+                                                                                format-style="currency"
+                                                                                currency-code="BRL">
+                                                                            </lightning-formatted-number>
+                                                                        </strong>
+                                                                    </td>
+                                                                    <td></td>
+                                                                    <td></td>
+                                                                </tr>
+                                                            </template>
+
+
+                                                            <tr class="slds-hint-parent">
+                                                                <td></td>
+                                                                <td></td>
+                                                                <td>
+                                                                    <div class="slds-truncate" title="ICMS Normal NFe">
+                                                                        Total Valor Agregado
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    <strong>
+                                                                        <lightning-formatted-number
+                                                                            value={camposFormularioTabelaVenda.totalValorAgregado}
+                                                                            format-style="currency" currency-code="BRL">
+                                                                        </lightning-formatted-number>
+                                                                    </strong>
+                                                                </td>
+                                                            </tr>
+
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+
+                                            </div>
+
+                                            <div
+                                                class="slds-grid slds-gutters slds-p-horizontal_small slds-p-vertical_small">
+                                                <div class="slds-m-horizontal_small custom-card">
+                                                    <h3>Custo Direto</h3>
+                                                    <table
+                                                        class="slds-table slds-table_cell-buffer slds-table_bordered">
+
+                                                        <tbody>
+                                                            <tr class="slds-hint-parent">
+                                                                <td>
+                                                                    <div class="slds-truncate" title="Veicúlo">
+                                                                        Veicúlo
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    <strong>
+                                                                        <lightning-formatted-number
+                                                                            value={camposFormularioTabelaVenda.custoDireto.veiculo}
+                                                                            format-style="currency" currency-code="BRL">
+                                                                        </lightning-formatted-number>
+                                                                    </strong>
+                                                                </td>
+                                                                <td>
+                                                                    <div class="slds-truncate" title="ICMS Venda">
+                                                                        ICMS Venda
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    <strong>
+                                                                        <lightning-formatted-number
+                                                                            value={camposFormularioTabelaVenda.custoDireto.icmsRetido}
+                                                                            format-style="currency" currency-code="BRL">
+                                                                        </lightning-formatted-number>
+                                                                    </strong>
+                                                                </td>
+                                                            </tr>
+
+                                                            <tr class="slds-hint-parent">
+                                                                <td>
+                                                                    <div class="slds-truncate"
+                                                                        title="Juros Floor-Plan Projetado">
+                                                                        Juros Floor-Plan Projetado
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    <strong>
+                                                                        <lightning-formatted-number
+                                                                            value={camposFormularioTabelaVenda.custoDireto.jurosFloorPlan}
+                                                                            format-style="currency" currency-code="BRL">
+                                                                        </lightning-formatted-number>
+                                                                    </strong>
+                                                                </td>
+                                                                <td>
+                                                                    <div class="slds-truncate" title="ICMS Normal NFe">
+                                                                        PisCofins
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    <strong>
+                                                                        <lightning-formatted-number
+                                                                            value={camposFormularioTabelaVenda.custoDireto.pisCofins}
+                                                                            format-style="currency" currency-code="BRL">
+                                                                        </lightning-formatted-number>
+                                                                    </strong>
+                                                                </td>
+                                                            </tr>
+
+                                                            <tr class="slds-hint-parent">
+                                                                <td></td>
+                                                                <td></td>
+                                                                <td>
+                                                                    <div class="slds-truncate"
+                                                                        title="Valor Total Custo Direto">
+                                                                        Valor Total Custo Direto
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    <strong>
+                                                                        <lightning-formatted-number
+                                                                            value={camposFormularioTabelaVenda.totalCustoDireto}
+                                                                            format-style="currency" currency-code="BRL">
+                                                                        </lightning-formatted-number>
+                                                                    </strong>
+                                                                </td>
+
+                                                            </tr>
+
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+
+                                            <div
+                                                class="slds-grid slds-gutters slds-p-horizontal_small slds-p-vertical_small">
+                                                <div class="slds-m-horizontal_small custom-card">
+                                                    <h3>Custo Operacional</h3>
+                                                    <table
+                                                        class="slds-table slds-table_cell-buffer slds-table_bordered">
+
+                                                        <tbody>
+                                                            <tr class="slds-hint-parent">
+                                                                <td>
+                                                                    <div class="slds-truncate" title="Veicúlo">
+                                                                        Custo Operacional
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    <strong>
+                                                                        <lightning-formatted-number
+                                                                            value={camposFormularioTabelaVenda.custoOperacional.custoOperacao}
+                                                                            format-style="currency" currency-code="BRL">
+                                                                        </lightning-formatted-number>
+                                                                    </strong>
+                                                                </td>
+                                                                <td>
+                                                                    <div class="slds-truncate" title="Frete">
+                                                                        Comissão
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    <strong>
+                                                                        <lightning-formatted-number
+                                                                            value={camposFormularioTabelaVenda.custoOperacional.custoComissao}
+                                                                            format-style="currency" currency-code="BRL">
+                                                                        </lightning-formatted-number>
+                                                                    </strong>
+                                                                </td>
+                                                            </tr>
+
+
+                                                            <tr class="slds-hint-parent">
+                                                                <td></td>
+                                                                <td> </td>
+                                                                <td>
+                                                                    <div class="slds-truncate" title="Juros de Mercado">
+                                                                        Total do Custo Operacional
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    <strong>
+                                                                        <lightning-formatted-number
+                                                                            value={camposFormularioTabelaVenda.totalCustoOperacional}
+                                                                            format-style="currency" currency-code="BRL">
+                                                                        </lightning-formatted-number>
+                                                                    </strong>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                </template>
+
+                            </div>
+
+
+                        </div>
+
+                        <div class="slds-grid slds-gutters slds-p-horizontal_small slds-p-vertical_small">
+
+                            <div class="slds-col slds-size_1-of-2">
+                                <strong class="custoBruto">Total custo (Bruto):&nbsp;
+                                    <lightning-formatted-number value={camposFormularioTabelaVenda.totalCustoBruto}
+                                        format-style="currency" currency-code="BRL"></lightning-formatted-number>
+                                </strong>
+                            </div>
+
+                            <div class="slds-col slds-size_1-of-2">
+                                <strong> Total custo:&nbsp;
+                                    <lightning-formatted-number value={camposFormularioTabelaVenda.totalCusto}
+                                        format-style="currency" currency-code="BRL"></lightning-formatted-number>
+                                </strong>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+
+            
+            <div id="agregados" class={agregadosExpandClass}>
+                <h3 class="slds-section__title" style='padding-bottom:0;'>
+                    <button aria-controls="prospotaClienteExpand" aria-expanded="true"
+                        class="slds-button slds-section__title-action" onclick={handleExpandAgregadosExpandExpand}>
+                        <lightning-icon icon-name="utility:switch" alternative-text="button icon" size="x-small"
+                            class="slds-section__title-action-icon slds-button__icon_left"></lightning-icon>
+                        <span class="slds-truncate" title="Section Title">Agregados</span>
+                    </button>
+                </h3>
+                <div aria-hidden="false" class="slds-section__content" id="prospotaClienteExpand2"
+                    style='padding-top:0;'>
+                    <div class="wideRegion2">
+
+                        <div class="slds-grid slds-gutters slds-p-horizontal_small slds-m-horizontal_xxx-small">
+
+                            <div class="slds-m-horizontal_small custom-card marginTopBottom20">
+                                <div class="slds-grid slds-wrap cabecalhoValoresAgregados">
+                                    <!-- <div class="slds-col slds-size_1-of-8">
+                                        <h3>Valores Agregados</h3>
+                                    </div> -->
+                                    <div class="slds-col slds-size_2-of-12">
+                                        <button
+                                            class="slds-button slds-button_icon slds-button_icon-more btnNewAgregado"
+                                            aria-haspopup="true" title="Adicionar valor agregado"
+                                            onclick={clickNewAgregado}>
+                                            <lightning-icon icon-name="utility:add" size="x-small"
+                                                variant="success"></lightning-icon>
+                                            <span class="slds-assistive-text"></span>
+                                        </button>
+                                    </div>
+                                    <div class="slds-col slds-size_5-of-12">
+                                    </div>
+                                </div>
+
+                                <table
+                                    class="slds-table slds-table_cell-buffer slds-table_bordered">
+
+                                    <tbody>
+                                        <template
+                                            for:each={camposFormularioPropostaCliente.agregadosAtivo}
+                                            for:item="agregado">
+                                            <tr class="slds-hint-parent" key={agregado.valor}>
+                                                <td>
+                                                    <div class="slds-truncate">
+                                                        {agregado.name}
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <strong>
+                                                        <lightning-formatted-number
+                                                            value={agregado.valor}
+                                                            format-style="currency"
+                                                            currency-code="BRL">
+                                                        </lightning-formatted-number>
+                                                    </strong>
+                                                </td>
+                                                <td></td>
+                                                <td>
+                                                </td>
+                                            </tr>
+                                        </template>
+
+                                        <template
+                                            for:each={camposFormularioPropostaCliente.agregadosCotacao}
+                                            for:item="agregado">
+                                            <tr class="slds-hint-parent" key={agregado.valor}>
+                                                <td>
+                                                    <div class="slds-truncate">
+                                                        {agregado.name}
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <strong>
+                                                        <lightning-formatted-number
+                                                            value={agregado.valor}
+                                                            format-style="currency"
+                                                            currency-code="BRL">
+                                                        </lightning-formatted-number>
+                                                    </strong>
+                                                </td>
+                                                <td></td>
+                                                <td>
+                                                    <template if:false={agregado.deFabrica}>
+                                                        <c-botao-remover dados={agregado}
+                                                            onremovedadosnewrecall={removeAgregado}>
+                                                        </c-botao-remover>
+                                                    </template>
+
+                                                </td>
+                                            </tr>
+                                        </template>
+
+
+                                        <tr class="slds-hint-parent">
+                                            <td>
+                                                <div class="slds-truncate">
+                                                    Valor total custo cliente
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <strong>
+                                                    <lightning-formatted-number
+                                                        value={camposFormularioPropostaCliente.valorCustoCliente}
+                                                        format-style="currency" currency-code="BRL">
+                                                    </lightning-formatted-number>
+                                                </strong>
+                                            </td>
+                                            <td>
+                                                <div class="slds-truncate">
+                                                    Valor total custo veículo 
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <strong>
+                                                    <lightning-formatted-number
+                                                        value={camposFormularioPropostaCliente.totalValorAgregado}
+                                                        format-style="currency" currency-code="BRL">
+                                                    </lightning-formatted-number>
+                                                </strong>
+                                            </td>
+                                        </tr>
+
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+
+
+
+            <div id="prospotaCliente" class={prospotaClienteExpandClass}>
+                <h3 class="slds-section__title" style='padding-bottom:0;'>
+                    <button aria-controls="prospotaClienteExpand" aria-expanded="true"
+                        class="slds-button slds-section__title-action" onclick={handleExpandprospotaClienteExpand}>
+                        <lightning-icon icon-name="utility:switch" alternative-text="button icon" size="x-small"
+                            class="slds-section__title-action-icon slds-button__icon_left"></lightning-icon>
+                        <span class="slds-truncate" title="Section Title">Proposta do Cliente</span>
+                    </button>
+                </h3>
+                <div aria-hidden="false" class="slds-section__content" id="prospotaClienteExpand"
+                    style='padding-top:0;'>
+                    <div class="wideRegion2">
+
+                        <div class="slds-grid slds-gutters slds-p-horizontal_small slds-p-vertical_small">
+                            <div class="slds-col slds-size_1-of-1">
+                                <lightning-input type="number" formatter="currency" step=".01" name="valorVeiculo" label="Valor do veículo"
+                                    value={camposFormularioPropostaCliente.valorVeiculo} onchange={handleValor} >
+                                </lightning-input>
+                            </div>
+
+                        </div>
+                        <div class="slds-grid slds-gutters slds-p-horizontal_small slds-p-vertical_small">
+                            <div class="slds-col slds-size_1-of-2">
+                                <lightning-input type="number" formatter="currency" step=".01" name="descontoReais" label="Desconto em reais"
+                                    value={camposFormularioPropostaCliente.descontoValorInput}
+                                    onchange={handleDescontoReaisChange} disabled>
+                                </lightning-input>
+                            </div>
+                            
+                            <div class="slds-col slds-size_1-of-2">
+                                <lightning-input type="number" formatter="percent-fixed" step=".01" name="descontoPorcentagem" label="Desconto %"
+                                    value={camposFormularioPropostaCliente.descontoPorcentagemInput}
+                                    onchange={handleDescontoPorcentagemChange} disabled>
+                                </lightning-input>
+                            </div>
+
+                        </div>
+
+                        <div class="slds-align_absolute-center">
+                            <lightning-button class="ctnAnalisar" variant="brand" label="Analisar" title="Analisar"
+                                onclick={handleAnaliseValoresPropostaCliente} disabled={disabledBtn}>
+                            </lightning-button>
+                            <lightning-button class="btnRestaurar" variant="neutral" label="Restaurar Valores"
+                                title="Restaurar Valores" onclick={handleRestauraValoresPropostaCliente} disabled={disabledBtn}>
+                            </lightning-button>
+                        </div>
+
+                        <div class="slds-grid slds-gutters slds-p-horizontal_small slds-m-horizontal_xxx-small">
+
+                            <div id="custoGeralVeiculoPropostaCliente" class="slds-section " style="width: 100%;">
+                                <h3 class="slds-section__title" style='padding-bottom:0;'>
+                                    <button aria-controls="custoGeralVeiculoPropostaClienteExpand" aria-expanded="true"
+                                        class="slds-button slds-section__title-action"
+                                        onclick={handleExpandcustoGeralVeiculoPropostaCliente}>
+
+                                        <template if:true={custoGeralVeiculoPropostaClienteClass}>
+                                            <lightning-icon icon-name="utility:chevrondown"
+                                                alternative-text="button icon" size="x-small"
+                                                class="slds-section__title-action-icon slds-button__icon_left">
+                                            </lightning-icon>
+                                        </template>
+
+                                        <template if:false={custoGeralVeiculoPropostaClienteClass}>
+                                            <lightning-icon icon-name="utility:chevronup" alternative-text="button icon"
+                                                size="x-small"
+                                                class="slds-section__title-action-icon slds-button__icon_left">
+                                            </lightning-icon>
+                                        </template>
+
+                                        <span class="slds-truncate" title="Section Title">Custo da venda</span>
+                                    </button>
+                                </h3>
+                                <template if:true={custoGeralVeiculoPropostaClienteClass}>
+
+                                    <div aria-hidden="false" class="slds-section__content"
+                                        id="custoGeralVeiculoPropostaClienteExpand" style='padding-top:0;'>
+                                        <div class="wideRegion">
+
+                                            <!--template if:true={rerenderValoresAgregados}>
+                                            </template-->
+
+                                            <div
+                                                class="slds-grid slds-gutters slds-p-horizontal_small slds-p-vertical_small">
+                                                <div class="slds-m-horizontal_small custom-card">
+                                                    <h3>Custo Direto</h3>
+                                                    <table
+                                                        class="slds-table slds-table_cell-buffer slds-table_bordered">
+
+                                                        <tbody>
+                                                            <tr class="slds-hint-parent">
+                                                                <td>
+                                                                    <div class="slds-truncate" title="Veicúlo">
+                                                                        Veicúlo
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    <strong>
+                                                                        <lightning-formatted-number
+                                                                            value={camposFormularioTabelaVenda.custoDireto.veiculo}
+                                                                            format-style="currency" currency-code="BRL">
+                                                                        </lightning-formatted-number>
+                                                                    </strong>
+                                                                </td>
+                                                                <td>
+                                                                    <div class="slds-truncate" title="ICMS">
+                                                                        ICMS
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    <strong>
+                                                                        <lightning-formatted-number
+                                                                            value={camposFormularioPropostaCliente.custoDireto.icmsRetido}
+                                                                            format-style="currency" currency-code="BRL">
+                                                                        </lightning-formatted-number>
+                                                                    </strong>
+                                                                </td>
+                                                            </tr>
+
+                                                            <tr class="slds-hint-parent">
+                                                                <td>
+                                                                    <div class="slds-truncate"
+                                                                        title="Juros Floor-Plan Projetado">
+                                                                        Juros Floor-Plan Projetado
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    <strong>
+                                                                        <lightning-formatted-number
+                                                                            value={camposFormularioTabelaVenda.custoDireto.jurosFloorPlan}
+                                                                            format-style="currency" currency-code="BRL">
+                                                                        </lightning-formatted-number>
+                                                                    </strong>
+                                                                </td>
+                                                                <td>
+                                                                    <div class="slds-truncate" title="PisCofins">
+                                                                        PisCofins
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    <strong>
+                                                                        <lightning-formatted-number
+                                                                            value={camposFormularioPropostaCliente.custoDireto.pisCofins}
+                                                                            format-style="currency" currency-code="BRL">
+                                                                        </lightning-formatted-number>
+                                                                    </strong>
+                                                                </td>
+                                                            </tr>
+
+                                                            <tr class="slds-hint-parent">
+                                                                <td></td>
+                                                                <td></td>
+                                                                <td>
+                                                                    <div class="slds-truncate"
+                                                                        title="Valor Total Custo Direto">
+                                                                        Valor Total Custo Direto
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    <strong>
+                                                                        <lightning-formatted-number
+                                                                            value={camposFormularioPropostaCliente.totalCustoDireto}
+                                                                            format-style="currency" currency-code="BRL">
+                                                                        </lightning-formatted-number>
+                                                                    </strong>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+
+                                            <div
+                                                class="slds-grid slds-gutters slds-p-horizontal_small slds-p-vertical_small">
+                                                <div class="slds-m-horizontal_small custom-card">
+                                                    <h3>Custo Operacional</h3>
+                                                    <table
+                                                        class="slds-table slds-table_cell-buffer slds-table_bordered">
+
+                                                        <tbody>
+                                                            <tr class="slds-hint-parent">
+                                                                <td>
+                                                                    <div class="slds-truncate" title="Veicúlo">
+                                                                        Custo Operacional
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    <strong>
+                                                                        <lightning-formatted-number
+                                                                            value={camposFormularioPropostaCliente.custoOperacional.custoOperacao}
+                                                                            format-style="currency" currency-code="BRL">
+                                                                        </lightning-formatted-number>
+                                                                    </strong>
+                                                                </td>
+                                                                <td>
+                                                                    <div class="slds-truncate" title="Frete">
+                                                                        Comissão
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    <strong>
+                                                                        <lightning-formatted-number
+                                                                            value={camposFormularioPropostaCliente.custoOperacional.custoComissao}
+                                                                            format-style="currency" currency-code="BRL">
+                                                                        </lightning-formatted-number>
+                                                                    </strong>
+                                                                </td>
+                                                            </tr>
+
+
+                                                            <tr class="slds-hint-parent">
+                                                                <td></td>
+                                                                <td> </td>
+                                                                <td>
+                                                                    <div class="slds-truncate" title="Juros de Mercado">
+                                                                        Total do Custo Operacional
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    <strong>
+                                                                        <lightning-formatted-number
+                                                                            value={camposFormularioPropostaCliente.totalCustoOperacional}
+                                                                            format-style="currency" currency-code="BRL">
+                                                                        </lightning-formatted-number>
+                                                                    </strong>
+                                                                </td>
+                                                            </tr>
+
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                </template>
+
+                            </div>
+
+
+                        </div>
+
+                        <div class="slds-grid slds-gutters slds-p-horizontal_small slds-p-vertical_small">
+
+                            <div class="slds-col slds-size_1-of-2">
+                                <strong class="custoBruto">Total custo (Bruto):&nbsp;
+                                    <lightning-formatted-number value={camposFormularioPropostaCliente.totalCustoBruto}
+                                        format-style="currency" currency-code="BRL"></lightning-formatted-number>
+                                </strong>
+                            </div>
+
+                            <div class="slds-col slds-size_1-of-2">
+                                <strong> Total custo:&nbsp;
+                                    <lightning-formatted-number value={camposFormularioPropostaCliente.totalCusto}
+                                        format-style="currency" currency-code="BRL"></lightning-formatted-number>
+                                </strong>
+                            </div>
+
+                        </div>
+                        
+                        <div class="slds-grid slds-gutters slds-p-horizontal_small slds-p-vertical_small">
+                            <div class="slds-col slds-size_2-of-2 divTotProposta">
+                                <strong> 
+                                    <span class="totProposta">Total da Proposta</span>
+                                    <lightning-helptext content="Valor Total da proposta com agregados"></lightning-helptext>
+                                    <span class="totProposta">:&nbsp;</span>
+                                    <lightning-formatted-number class="totProposta" value={camposFormularioPropostaCliente.valorTotalComAgregados}
+                                        format-style="currency" currency-code="BRL"></lightning-formatted-number>
+                                </strong>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+                <div class="slds-align_absolute-center botoesFooter">
+                    <template if:false={vemEstoque}>
+                        <lightning-button variant="brand" label="Salvar" class="btnSalvar" onclick={onSalvar} disabled={disabledBtn}>
+                        </lightning-button>
+                        <lightning-button class="btnCancelar" label="Voltar" onclick={onCancelar} disabled={disabledBtn}>
+                        </lightning-button>
+                    </template>
+                    <template if:true={vemEstoque}>
+                        <lightning-button label="Voltar" class="btnVoltar" onclick={onVoltar}>
+                        </lightning-button>
+                    </template>
+                </div>
+            </div>
+
+
+        </div>
+
+        <div if:false={permissaoCuestos} class="slds-size_1-of-6"></div>
+
+        <div if:true={permissaoCuestos} class="slds-col slds-size_2-of-6">
+
+
+            <div class="slds-grid slds-gutters slds-p-horizontal_small slds-p-vertical_small">
+                <div class="slds-m-horizontal_small custom-card">
+                    <h3>Valor Original</h3>
+                    <table class="slds-table slds-table_cell-buffer slds-table_bordered">
+
+                        <tbody>
+                            <tr class="slds-hint-parent">
+                                <td>
+                                    <div class="slds-truncate" title="Custo Operacional">
+                                        Custo Operacional
+                                    </div>
+                                </td>
+                                <td>
+                                    <strong>{porcentagemCustoOperacional}%</strong>
+                                </td>
+                            </tr>
+                            <tr class="slds-hint-parent">
+                                <td>
+                                    <div class="slds-truncate" title="Comissão (NF)">
+                                        Comissão (NF)
+                                    </div>
+                                </td>
+                                <td>
+                                    <strong>{porcentagemComissaoNf}%</strong>
+                                </td>
+                            </tr>
+
+                            <tr class="slds-hint-parent">
+                                <td>
+                                    <div class="slds-truncate" title="Lucro Bruto (%)">
+                                        Lucro Bruto (%)
+                                    </div>
+                                </td>
+                                <td>
+                                    <strong>
+                                        <lightning-formatted-number value={camposFormularioTabelaVenda.margemBruta}
+                                            format-style="percent" maximum-fraction-digits="2">
+                                        </lightning-formatted-number>
+                                    </strong>
+                                </td>
+                            </tr>
+                            <tr class="slds-hint-parent">
+                                <td>
+                                    <div class="slds-truncate" title="Valor Lucro Bruto">
+                                        Valor Lucro Bruto
+                                    </div>
+                                </td>
+                                <td>
+                                    <strong>
+                                        <lightning-formatted-number value={camposFormularioTabelaVenda.margemBrutaValor}
+                                            format-style="currency" currency-code="BRL"></lightning-formatted-number>
+                                    </strong>
+                                </td>
+                            </tr>
+                            <template if:true={utilizarOperacional}>
+                                <tr class="slds-hint-parent">
+                                    <td>
+                                        <div class="slds-truncate" title="Margem Liquida (%)">
+                                            Margem Liquida (%)
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <strong>
+                                            <lightning-formatted-number
+                                                value={camposFormularioTabelaVenda.margemLiquida} format-style="percent"
+                                                maximum-fraction-digits="2">
+                                            </lightning-formatted-number>
+                                        </strong>
+                                    </td>
+                                </tr>
+
+                                <tr class="slds-hint-parent">
+                                    <td>
+                                        <div class="slds-truncate" title="Valo Margem Liquida">
+                                            Valo Margem Liquida
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <strong>
+                                            <lightning-formatted-number
+                                                value={camposFormularioTabelaVenda.margemLiquidaValor}
+                                                format-style="currency" currency-code="BRL">
+                                            </lightning-formatted-number>
+                                        </strong>
+                                    </td>
+                                </tr>
+                            </template>
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="slds-grid slds-gutters slds-p-horizontal_small slds-p-vertical_small">
+                <div class="slds-m-horizontal_small custom-card">
+                    <h3>Analise da Proposta</h3>
+                    <table class="slds-table slds-table_cell-buffer slds-table_bordered">
+
+                        <tbody>
+                            <tr class="slds-hint-parent">
+                                <td>
+                                    <div class="slds-truncate" title="Desconto">
+                                        Desconto
+                                    </div>
+                                </td>
+                                <td>
+                                    <strong>
+                                        <lightning-formatted-number
+                                            value={camposFormularioPropostaCliente.descontoPorcentagem}
+                                            format-style="percent-fixed" maximum-fraction-digits="2">
+                                        </lightning-formatted-number>
+                                    </strong>
+                                </td>
+                                <td>
+                                    <div class="slds-truncate">
+                                        <div class="slds-truncate">
+                                            <lightning-icon class="clienteDesistiu" icon-name={descontoLike}
+                                                variant={descontoVariant} size="x-small">
+                                            </lightning-icon>
+                                        </div>
+                                    </div>
+                                </td>
+
+                            </tr>
+
+                            <tr class="slds-hint-parent">
+                                <td>
+                                    <div class="slds-truncate" title="Valor Desconto">
+                                        Valor Desconto
+                                    </div>
+                                </td>
+                                <td>
+                                    <strong>
+                                        <lightning-formatted-number
+                                            value={camposFormularioPropostaCliente.descontoValor}
+                                            format-style="currency" currency-code="BRL"></lightning-formatted-number>
+                                    </strong>
+                                </td>
+                                <td>
+                                    <div class="slds-truncate">
+
+                                    </div>
+                                </td>
+                            </tr>
+
+                            <tr class="slds-hint-parent">
+                                <td>
+                                    <div class="slds-truncate" title="Lucro Bruto (%)">
+                                        Lucro Bruto (%)
+                                    </div>
+                                </td>
+                                <td>
+                                    <strong>
+                                        <lightning-formatted-number value={camposFormularioPropostaCliente.margemBruta}
+                                            format-style="percent" maximum-fraction-digits="2">
+                                        </lightning-formatted-number>
+                                    </strong>
+                                </td>
+                                <td>
+                                    <div class="slds-truncate">
+                                        <lightning-icon class="clienteDesistiu" icon-name={lucroBrutoLike}
+                                            variant={lucroBrutoVariant} size="x-small">
+                                        </lightning-icon>
+                                    </div>
+                                </td>
+                            </tr>
+
+                            <tr class="slds-hint-parent">
+                                <td>
+                                    <div class="slds-truncate" title="Valor Lucro Bruto">
+                                        Valor Lucro Bruto
+                                    </div>
+                                </td>
+                                <td>
+                                    <strong>
+                                        <lightning-formatted-number
+                                            value={camposFormularioPropostaCliente.margemBrutaValor}
+                                            format-style="currency" currency-code="BRL"></lightning-formatted-number>
+                                    </strong>
+                                </td>
+                                <td></td>
+                            </tr>
+                            <template if:true={utilizarOperacional}>
+                                <tr class="slds-hint-parent">
+                                    <td>
+                                        <div class="slds-truncate" title="Margem Liquida (%)">
+                                            Margem Liquida (%)
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <strong>
+                                            <lightning-formatted-number
+                                                value={camposFormularioPropostaCliente.margemLiquida}
+                                                format-style="percent" maximum-fraction-digits="2">
+                                            </lightning-formatted-number>
+                                        </strong>
+                                    </td>
+                                    <td>
+                                        <div class="slds-truncate">
+                                            <lightning-icon class="clienteDesistiu" icon-name={margemLiquidaLike}
+                                                variant={margemLiquidaVariant} size="x-small">
+                                            </lightning-icon>
+                                        </div>
+                                    </td>
+                                </tr>
+
+                                <tr class="slds-hint-parent">
+                                    <td>
+                                        <div class="slds-truncate" title="Valor Margem Liquida">
+                                            Valor Margem Liquida
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <strong>
+                                            <lightning-formatted-number
+                                                value={camposFormularioPropostaCliente.margemLiquidaValor}
+                                                format-style="currency" currency-code="BRL">
+                                            </lightning-formatted-number>
+                                        </strong>
+                                    </td>
+                                    <td></td>
+                                </tr>
+                            </template>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</template>
